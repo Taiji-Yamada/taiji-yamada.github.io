@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://taijiyamada.github.io/sitemap.xml
+Sitemap: https://taiji-yamada.github.io/sitemap.xml
