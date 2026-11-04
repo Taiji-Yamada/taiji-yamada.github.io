@@ -1,0 +1,636 @@
+<!DOCTYPE html> <html lang="ja"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> How to build a cognitive map (Whittington et al., 2022) | 山田 泰司 | Taiji Yamada </title> <meta name="author" content="Taiji Yamada"> <meta name="description" content="認知地図モデルを「潜在状態の表現と般化」という軸で整理するレビュー"> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=3116ba77db9ee1581d05bb3e86fbf7f1"> <link rel="canonical" href="https://taiji-yamada.github.io/blog/2026/cognitive-map/"> <script src="/assets/js/theme.js?v=5286c3e4c334d0ecb8fc0c40ff4fa7ec"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> 山田 泰司 | Taiji Yamada </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">repositories </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item "> <a class="nav-link" href="/teaching/">teaching </a> </li> <li class="nav-item "> <a class="nav-link" href="/people/">people </a> </li> <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-nav-dropdown-toggle="true" aria-haspopup="true" aria-expanded="false">submenus </a> <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> <a class="dropdown-item " href="/books/">bookshelf</a> <div class="dropdown-divider"></div> <a class="dropdown-item " href="/blog/">blog</a> </div> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">How to build a cognitive map (Whittington et al., 2022)</h1> <p class="post-meta"> Created on November 04, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/hippocampus"> <i class="fa-solid fa-hashtag fa-sm"></i> hippocampus</a>   <a href="/blog/tag/learning-to-learn"> <i class="fa-solid fa-hashtag fa-sm"></i> learning to learn</a>   <a href="/blog/tag/cognitive-map"> <i class="fa-solid fa-hashtag fa-sm"></i> cognitive map</a>   <a href="/blog/tag/state-representation"> <i class="fa-solid fa-hashtag fa-sm"></i> state representation</a>   ·   <a href="/blog/category/%E8%AB%96%E6%96%87"> <i class="fa-solid fa-tag fa-sm"></i> 論文</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <style>
+  .post-content h2 {
+    margin-top: 2.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid var(--global-theme-color);
+  }
+  .post-content h3 {
+    margin-top: 1.8rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid var(--global-divider-color);
+  }
+</style> <p><strong>書誌情報</strong>：Whittington, J. C. R., McCaffary, D., Bakermans, J. J. W., &amp; Behrens, T. E. J. (2022). How to build a cognitive map. <em>Nature Neuroscience</em>, 25, 1257–1272. <a href="https://doi.org/10.1038/s41593-022-01153-y" rel="external nofollow noopener" target="_blank">doi:10.1038/s41593-022-01153-y</a></p> <h2 id="一言でいうと">一言でいうと</h2> <p>海馬体の様々なモデルを「多様な系列情報から環境の構造を潜在状態としてどう表現して般化に使うか」という共通の問題として整理したレビュー。</p> <h2 id="the-cognitive-mapping-problem">The cognitive mapping problem</h2> <h3 id="認知地図が解くべき問題">認知地図が解くべき問題</h3> <ul> <li>認知地図の目的は，事前の学習を可能な限り行い，オンラインでの学習や計算を最小限に抑えること。</li> <li>モデルフリー強化学習はしばしば非柔軟であるが，モデルベース強化学習はツリーサーチなどの高い計算コストを要する。そこで，良い状態空間を構成することでこれを解決したい。</li> <li>これを達成するためには，世界の構造に関する効率的な状態表現を獲得する必要がある。 <ul> <li>物理的空間では，各細胞が場所のIDを符号化するのではなく（場所細胞），座標表現（グリッド細胞）にする。</li> <li>物理的空間以外では，直感的ないい表現は決めづらい。そこで，空間をグラフ構造として表現する。</li> </ul> </li> </ul> <h3 id="系列から潜在状態を予測する">系列から潜在状態を予測する</h3> <ul> <li>グラフ表現を選んだはいいものの，どんなグラフを作ればよいか？</li> <li>感覚の観測をそのままノード（状態）にすべきではない。同じ観測は別の状況で起こるし，観測の結果は同じではない（エイリアシング，状態→観測は多対一，観測→状態は一対多）。世界は部分観測なので，潜在状態を推論する必要がある。</li> <li>観測の系列を使えばいい。実際，海馬体は系列から学び，潜在状態を表現している。</li> <li>潜在状態の推論とは，抽象空間での位置を知ることである。 <ul> <li>物理的空間では，経路積分をする。</li> <li>物理的空間以外でも，グラフ上では経路積分が使える（e.g., ボブはアリスの孫 ＋ クロエはボブの兄弟 → クロエはアリスの孫）。ただし，使えない場合もある。</li> </ul> </li> </ul> <h3 id="状態表現を般化させる">状態表現を般化させる</h3> <ul> <li>グラフの知識を完全に移すのはNP困難。古いグラフのノードと新しいグラフのノードの完全な対応表が必要になる。</li> <li>しかし，経路積分ならば容易。経路積分の表現は，特定のノード名に結びついた関係規則（Aの隣はB）ではなく，動き方の規則（東に＋1）だからどのノードでも成り立つ。</li> <li>海馬の表現自体は般化しないが，嗅内皮質の表現は般化する。 <ul> <li>海馬の場所細胞は，環境が変わると，発火する場所をバラバラに変える（remapping）。</li> <li>嗅内皮質のグリッド細胞は，環境が変わると，モジュール全体の格子がまとめてずれたり回転したりするが，同モジュール（格子の間隔と向きがほぼ同じで，位相，つまり格子の網目がどこにずれているかだけが違う）内の隣接するグリッド細胞は他の環境においても位相関係が保たれる（realignment）。</li> </ul> </li> <li>般化の学習は，多くの環境にまたがる系列学習である。1つの系列だけなら，それは個別の事象として丸暗記できる。複数の系列を観測することで関係規則として学習が可能になる。</li> <li>般化を適用するには，抽象的な知識を具体的な予測にしなければならない（e.g., 「東に＋1で○○」の○○を予測する）。海馬の細胞がこの相互作用を反映しており，内側嗅内皮質（MEC）からの抽象的な知識と外側嗅内皮質（LEC）からの感覚的知識が海馬内で統合される。</li> </ul> <h3 id="composition">Composition</h3> <ul> <li>地図全体ではなく，部品を般化させることもできる（e.g., 形状の異なる部屋は，基礎となる2次元空間とどこにでも配置可能な壁で理解できる）。</li> <li>認知地図がタスクを横断する共通の構造的要素を表現していれば，これらの要素を組み合わせて，任意のタスク構成を理解できる。</li> <li>任意の構成を促進するためには，異なる構造要素（基底）を互いに独立して（因子分解して）表現する必要がある。そうすることで，タスクの理解は構造的推論問題，すなわち現在のタスクを表現するための適切な基底を見つける問題となる。</li> <li>海馬体の認知地図には，多くの基底表現が含まれている。 <ul> <li>局所的な基底：オブジェクト・ベクトル細胞，境界・ベクトル細胞，報酬細胞，目標・ベクトル細胞。これらは位置に関係なくあらゆる物体・境界・目標を符号化する局所的な基底表現である。</li> <li>大域的な基底：グリッド細胞は，空間全体にわたって均一に情報を記述するため，大域的な基底である。</li> </ul> </li> </ul> <h2 id="new-interpretations-integrations-and-predictions">New interpretations, integrations and predictions</h2> <h3 id="非空間的海馬細胞は般化のための潜在状態表現である">非空間的海馬細胞は，般化のための潜在状態表現である</h3> <ul> <li>海馬には非空間を表す細胞が多くあるが，どれも2つの原理だけで説明できる。 <ul> <li>disambiguation：同じ場所でも，その先の展開が違えば別の状態として区別する（潜在状態）。</li> <li>generalization：空間として同じであることは共有し，使い回す。</li> </ul> </li> <li>効率的な般化には，あらゆる抽象化レベルを同時に表現しなければならない。空間的課題では空間を，非空間的課題では非空間を，空間と非空間が相互作用する課題ではその両方を表現する必要がある。T-mazeを左右交互に進む課題では，左→中央→右→中央における2つの中央の意味は違う。しかし，これだけでは中央は同じ場所だという情報がなく，1回目の中央での観測を2回目に使い回せない。スプリッター細胞と場所細胞がそれにあたる。</li> </ul> <h3 id="海馬は地図か記憶か">海馬は地図か？記憶か？</h3> <ul> <li>海馬＝地図（e.g., Successor Representation（SR），Clone-Structured Cognitive Graph（CSCG））：あらゆる地図を迅速に学習するが，その地図は般化しない。</li> <li>海馬＝記憶，皮質＝地図（e.g., Tolman–Eichenbaum Machine（TEM），Spatial Memory Pipeline（SMP））：皮質の地図を学習するのに時間がかかるが，一度学習すれば直ちに般化できる。</li> <li>海馬は両方の役割を時期によって使い分ける可能性。 <ul> <li>初めての経験：皮質に使える地図がまだないので海馬がその場で地図を作る。</li> <li>慣れた経験：皮質が構造を学び終えているので，海馬はその構造と中身を結ぶ記憶になる。</li> </ul> </li> <li>これにより，皮質が般化できる地図を学ぶ前から，海馬がその環境で使える状態空間を提供できる。海馬の地図はリプレイによってオフラインで皮質に送られ，皮質の学習を速める。しかも海馬の状態は脱エイリアス済みなので，生の観測よりも質の高い教師信号になる。</li> <li>これは，TEMに海馬自身の遷移（海馬の状態から次の海馬の状態を予測する経路）を加えたモデルとして記述できる。</li> </ul> <h3 id="認知地図は行動にどう使われるか">認知地図は行動にどう使われるか</h3> <ul> <li>RLの状態空間として使う（SR，Default Representation（DR; Piray &amp; Daw, 2021））：SRやDRは，状態空間を受け取って価値を計算する。入力として，状態がきちんと区別された状態空間さえあればよいので，CSCGやTEMが作った海馬の状態をSRの入力にすることもできる。つまり，地図を作るモデルと地図を使うモデルは組み合わせられる。</li> <li>推論としての計画（planning as inference）：ツリーサーチの代わりに，開始状態とゴール状態を条件づけて，その間をつなぐactionとstateの系列の事後分布を推論する。HMMで両端を固定して中間を推定する操作と同じ。CSCGはベイズモデルなので，これを自然に実行できる。</li> <li>ベクトルによる移動（格子コード）：ゴールの格子コードと現在地の格子コードから，進むべき方向のベクトルが直接出る。動物のような近道行動ができ，格子細胞は般化するので，方策も別の環境に移せる。</li> <li>遷移行列を固有分解すると，1ステップでも，nステップでも，SRでも，固有ベクトルは共通で，固有値の重みだけが違う。グリッド細胞が固有ベクトルを表しているなら，脳はその同じ基底を使って，固有値の重みを変えるだけでさまざまな多ステップの操作を実現できる。</li> </ul> <h3 id="credit-assignmentを価値関数ではなく状態表現を変えることで行う">Credit assignmentを価値関数ではなく状態表現を変えることで行う</h3> <ul> <li>通常のRLでは状態空間は固定されていて，そこに価値を割り当てていくが，状態表現を変えて，価値を表しやすくすることもできる。</li> <li>新奇な課題では状態空間が素朴なので，線条体の古典的なRLで学ぶ。やがてゴールへの方策ができる。その行動系列を皮質・海馬系にリプレイし，統計を抽出して，より良い状態空間を学ぶ。その表現を線条体にRLの状態空間として返す。線条体はその表現のもとでより良い方策を学ぶ。皮質の表現が十分に良くなれば，新しい線条体のRLなしに，般化だけで行動を生成できる。</li> <li>行動の制御が状態空間の構成に帰着するなら，それを速く正確に行い，記憶に保存する必要がある。この効率を高めるなら，オフラインでやるべき。</li> <li>報酬を見つけたとき，その報酬との関係をすべての地点が知っている状態にしたい。そうすれば，どこにいても報酬に向かえる。リプレイによって，報酬地点から経路積分して離れていく。到達した各地点で，「ここからGへのベクトル」，つまり各地点用のGVCが決まる。そのGVCを，その地点の海馬・皮質の表現と結びつけて記憶に書き込む。これが海馬のランドマーク細胞の形成に当たるかもしれない。これを地点ごとに繰り返す。</li> <li>その結果，状態そのものが報酬との関係を知っているので，ゴールの位置を保持し続ける必要がない。重い計算はオフラインで済み，オンラインでは記憶を引くだけ。</li> </ul> <h3 id="表現が因子分解されるかどうかは課題の構造で決まる">表現が因子分解されるかどうかは課題の構造で決まる</h3> <ul> <li>グリッドが報酬の方へ歪むことがある。因子分解された表現なら，歪んではいけない。空間表現は，報酬がどこにあっても同じであるべきだから。</li> <li>般化への圧力と単一の課題を正確に表現することとの間で生じる，「ワープ」と「非ワープ」の間の緊張関係を提案する。課題の切り替えがまれなら，般化の必要がないので課題専用の歪んだ表現でいい。切り替えが多いなら，般化で部品を組み替える方がいい。</li> <li>つまり，課題の集合そのものが因子分解されていれば，細胞の表現も因子分解される。</li> </ul> <h2 id="open-questions">Open questions</h2> <h3 id="時間を認知地図にどう組み込むか">時間を認知地図にどう組み込むか</h3> <ul> <li>ここまでのモデルは，学習した表現が時間がたっても安定していることを前提にしていた。</li> <li>しかし実際には，海馬などの表現は日をまたいでゆっくり入れ替わる（representational drift）。これは，記憶痕跡（エングラム）や受容野が固定されているという従来の考えと矛盾する。</li> <li>では，表現を担う細胞が入れ替わっていくのに，なぜ空間の表現は安定して保たれるのか。</li> <li>般化モデルでは，海馬の細胞は複数の要素の結合（海馬の表現 ＝ 空間（MEC） × 感覚（LEC） × 時間（嗅内皮質の時間コード））。このうち時間コードだけがゆっくり進むと，結合が変わるので，海馬では別の細胞が使われるようになる。しかし新しい細胞は，時間の成分との結合が違うだけで，空間の成分との結合は前と同じ。したがって，空間の情報は保たれる。</li> <li>つまり，ドリフトは感覚や空間ではなく時間が変わったことによるremappingだという解釈。</li> </ul> <h3 id="系列から認知の他の領域へ">系列から認知の他の領域へ</h3> <ul> <li>認知地図と無関係だった系列問題も同じように理解できるか。RNN・LSTM・Transformerのような系列学習器は，言語・数学・論理の問題でよい成績を出す。</li> <li>系列問題からの理解を系列でない認知領域にも広げられるか。</li> </ul> <h2 id="感想">感想</h2> <ul> <li>効率的な状態表現を抽出して利用することに関する計算論をゴリゴリに書き下していて非常に面白かった。</li> <li>特に，credit assignment問題を価値関数じゃなくて，状態表現を変えることで行うという発想は，目標・価値・構造を概念的に結びつけるものだし，それの神経回路も示されていて一番面白かった部分かも。</li> <li>前から考えていた，目標（ゴール）と行動の関係について示唆的な内容だった。いい状態表現とゴールが決まればそれでよくねってやつ。</li> <li>そうなると，モデルベースなんて本当にやっているんだろうか。</li> <li>課題集合が因子分解されていれば，細胞の表現も因子分解されるというのは，メタ学習ともつながる。認知的機能のダイナミクスをボトムアップ的に説明しようという私のモチベにも合った。</li> <li>この枠組みで，構造の学習するヒトとそうでないヒトの個体差をどのように説明できるだろうか。</li> </ul> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/" target="_blank" rel="noopener noreferrer">Google Gemini updates: Flash 1.5, Gemma 2 and Project Astra</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@al-folio/displaying-external-posts-on-your-al-folio-blog-b60a1d241a0a?source=rss-17feae71c3c4------2" target="_blank" rel="noopener noreferrer">Displaying External Posts on Your al-folio Blog</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2025/marimo/">a post with marimo snippets</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2025/plotly/">a post with plotly.js</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/photo-gallery/">a post with image galleries</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/tabs/">a post with tabs</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/typograms/">a post with typograms</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/post-citation/">a post that can be cited</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/pseudocode/">a post with pseudo code</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/code-diff/">a post with code diff</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Taiji Yamada. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-blog",
+          title: "blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-publications",
+          title: "publications",
+          description: "publications by categories in reversed chronological order. generated by jekyll-scholar.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-projects",
+          title: "projects",
+          description: "A growing collection of your cool projects.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-repositories",
+          title: "repositories",
+          description: "Edit the `_data/repositories.yml` and change the `github_users` and `github_repos` lists to include your own GitHub profile and repositories.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/repositories/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "This is a description of the page. You can modify it in '_pages/cv.md'. You can also change or remove the top pdf download button.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "nav-teaching",
+          title: "teaching",
+          description: "Course materials, schedules, and resources for classes taught.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/teaching/";
+          },
+        },{id: "nav-people",
+          title: "people",
+          description: "members of the lab or group",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/people/";
+          },
+        },{id: "dropdown-bookshelf",
+              title: "bookshelf",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },{id: "dropdown-blog",
+              title: "blog",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/blog/";
+              },
+            },{id: "post-how-to-build-a-cognitive-map-whittington-et-al-2022",
+        
+          title: "How to build a cognitive map (Whittington et al., 2022)",
+        
+        description: "認知地図モデルを「潜在状態の表現と般化」という軸で整理するレビュー",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/cognitive-map/";
+          
+        },
+      },{id: "post-a-post-with-marimo-snippets",
+        
+          title: "a post with marimo snippets",
+        
+        description: "running Python in the browser with marimo",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/marimo/";
+          
+        },
+      },{id: "post-a-post-with-plotly-js",
+        
+          title: "a post with plotly.js",
+        
+        description: "this is what included plotly.js code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/plotly/";
+          
+        },
+      },{id: "post-a-post-with-image-galleries",
+        
+          title: "a post with image galleries",
+        
+        description: "this is what included image galleries could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/photo-gallery/";
+          
+        },
+      },{id: "post-google-gemini-updates-flash-1-5-gemma-2-and-project-astra",
+        
+          title: 'Google Gemini updates: Flash 1.5, Gemma 2 and Project Astra <svg width="1.2rem" height="1.2rem" top=".5rem" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "We’re sharing updates across our Gemini family of models and a glimpse of Project Astra, our vision for the future of AI assistants.",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/", "_blank");
+          
+        },
+      },{id: "post-a-post-with-tabs",
+        
+          title: "a post with tabs",
+        
+        description: "this is what included tabs in a post could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/tabs/";
+          
+        },
+      },{id: "post-a-post-with-typograms",
+        
+          title: "a post with typograms",
+        
+        description: "this is what included typograms code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/typograms/";
+          
+        },
+      },{id: "post-a-post-that-can-be-cited",
+        
+          title: "a post that can be cited",
+        
+        description: "this is what a post that can be cited looks like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/post-citation/";
+          
+        },
+      },{id: "post-a-post-with-pseudo-code",
+        
+          title: "a post with pseudo code",
+        
+        description: "this is what included pseudo code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/pseudocode/";
+          
+        },
+      },{id: "post-a-post-with-code-diff",
+        
+          title: "a post with code diff",
+        
+        description: "this is how you can display code diffs",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/code-diff/";
+          
+        },
+      },{id: "post-a-post-with-advanced-image-components",
+        
+          title: "a post with advanced image components",
+        
+        description: "this is what advanced image components could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/advanced-images/";
+          
+        },
+      },{id: "post-a-post-with-vega-lite",
+        
+          title: "a post with vega lite",
+        
+        description: "this is what included vega lite code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/vega-lite/";
+          
+        },
+      },{id: "post-a-post-with-geojson",
+        
+          title: "a post with geojson",
+        
+        description: "this is what included geojson code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/geojson-map/";
+          
+        },
+      },{id: "post-a-post-with-echarts",
+        
+          title: "a post with echarts",
+        
+        description: "this is what included echarts code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/echarts/";
+          
+        },
+      },{id: "post-a-post-with-chart-js",
+        
+          title: "a post with chart.js",
+        
+        description: "this is what included chart.js code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/chartjs/";
+          
+        },
+      },{id: "post-a-post-with-tikzjax",
+        
+          title: "a post with TikZJax",
+        
+        description: "this is what included TikZ code could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/tikzjax/";
+          
+        },
+      },{id: "post-a-post-with-bibliography",
+        
+          title: "a post with bibliography",
+        
+        description: "an example of a blog post with bibliography",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/post-bibliography/";
+          
+        },
+      },{id: "post-a-post-with-jupyter-notebook",
+        
+          title: "a post with jupyter notebook",
+        
+        description: "an example of a blog post with jupyter notebook",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/jupyter-notebook/";
+          
+        },
+      },{id: "post-a-post-with-custom-blockquotes",
+        
+          title: "a post with custom blockquotes",
+        
+        description: "an example of a blog post with custom blockquotes",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/custom-blockquotes/";
+          
+        },
+      },{id: "post-a-post-with-table-of-contents-on-a-sidebar",
+        
+          title: "a post with table of contents on a sidebar",
+        
+        description: "an example of a blog post with table of contents on a sidebar",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/sidebar-table-of-contents/";
+          
+        },
+      },{id: "post-a-post-with-audios",
+        
+          title: "a post with audios",
+        
+        description: "this is what included audios could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/audios/";
+          
+        },
+      },{id: "post-a-post-with-videos",
+        
+          title: "a post with videos",
+        
+        description: "this is what included videos could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/videos/";
+          
+        },
+      },{id: "post-displaying-beautiful-interactive-tables",
+        
+          title: "displaying beautiful interactive tables",
+        
+        description: "an example of how to use interactive tables in al-folio",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/tables/";
+          
+        },
+      },{id: "post-a-post-with-table-of-contents",
+        
+          title: "a post with table of contents",
+        
+        description: "an example of a blog post with table of contents",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/table-of-contents/";
+          
+        },
+      },{id: "post-a-post-with-giscus-comments",
+        
+          title: "a post with giscus comments",
+        
+        description: "an example of a blog post with giscus comments",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2022/giscus-comments/";
+          
+        },
+      },{id: "post-یک-نوشتهٔ-راست-چین",
+        
+          title: "یک نوشتهٔ راست‌چین",
+        
+        description: "نمونه‌ای از پشتیبانی زبان‌های راست‌چین",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2022/rtl/";
+          
+        },
+      },{id: "post-displaying-external-posts-on-your-al-folio-blog",
+        
+          title: 'Displaying External Posts on Your al-folio Blog <svg width="1.2rem" height="1.2rem" top=".5rem" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@al-folio/displaying-external-posts-on-your-al-folio-blog-b60a1d241a0a?source=rss-17feae71c3c4------2", "_blank");
+          
+        },
+      },{id: "post-a-post-with-redirect",
+        
+          title: "a post with redirect",
+        
+        description: "you can also redirect to assets like pdf",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/assets/pdf/example_pdf.pdf";
+          
+        },
+      },{id: "post-a-post-with-diagrams",
+        
+          title: "a post with diagrams",
+        
+        description: "an example of a blog post with diagrams",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2021/diagrams/";
+          
+        },
+      },{id: "post-a-distill-style-blog-post",
+        
+          title: "a distill-style blog post",
+        
+        description: "an example of a distill-style blog post and main elements",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2021/distill/";
+          
+        },
+      },{id: "post-a-post-with-twitter",
+        
+          title: "a post with twitter",
+        
+        description: "an example of a blog post with twitter",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2020/twitter/";
+          
+        },
+      },{id: "post-a-post-with-disqus-comments",
+        
+          title: "a post with disqus comments",
+        
+        description: "an example of a blog post with disqus comments",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/disqus-comments/";
+          
+        },
+      },{id: "post-a-post-with-math",
+        
+          title: "a post with math",
+        
+        description: "an example of a blog post with some math",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/math/";
+          
+        },
+      },{id: "post-a-post-with-code",
+        
+          title: "a post with code",
+        
+        description: "an example of a blog post with some code",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/code/";
+          
+        },
+      },{id: "post-a-post-with-images",
+        
+          title: "a post with images",
+        
+        description: "this is what included images could look like",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/images/";
+          
+        },
+      },{id: "post-a-post-with-formatting-and-links",
+        
+          title: "a post with formatting and links",
+        
+        description: "march & april, looking forward to summer",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/formatting-and-links/";
+          
+        },
+      },{id: "books-the-godfather",
+          title: 'The Godfather',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_godfather/";
+            },},{id: "news-a-simple-inline-announcement",
+          title: 'A simple inline announcement.',
+          description: "",
+          section: "News",},{id: "news-a-long-announcement-with-details",
+          title: 'A long announcement with details',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2/";
+            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
+          title: 'A simple inline announcement with Markdown emoji! <img class="emoji" title=":sparkles:" alt=":sparkles:" src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png" height="20" width="20"> <img class="emoji" title=":smile:" alt=":smile:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" height="20" width="20">',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/assets/pdf/example_pdf.pdf", "_blank");
+        },
+      },{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%79%6F%75@%65%78%61%6D%70%6C%65.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-inspire',
+        title: 'Inspire HEP',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://inspirehep.net/authors/1010907", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=qc6CJjYAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-custom_social',
+        title: 'Custom_social',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.alberteinstein.com/", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
