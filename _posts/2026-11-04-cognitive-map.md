@@ -5,7 +5,7 @@ date: 2026-11-04 22:00:00 +0900
 description: 認知地図モデルを「潜在状態の表現と般化」という軸で整理するレビュー
 tags: [hippocampus, learning to learn, cognitive map, state representation]
 categories: 論文
-published: false
+published: true
 ---
 
 <style>
