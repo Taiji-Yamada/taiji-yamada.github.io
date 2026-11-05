@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: 脳の多様なタイムスケールを深堀するための作戦会議＃１
 date: 2026-11-05
 description: 脳のタイムスケールに関するどんな論文を読んでいくかの方針を決定する
@@ -22,15 +22,18 @@ published: true
 </style>
 
 ## 脳のタイムスケール
+
 脳は多様なタイムスケールを持っている。脳が環境から推定しなければならない変数は山ほどあるが，短いタイムスケールから推定すべき変数もあれば，長いタイムスケールから推定すべき変数もあるだろう。だから脳も同じように複数のタイムスケールを持っているのだと思う。私の研究にも非常に重要なテーマだと思うのだが，あまり知識がないので，ここで一度腰を上げてレビューする必要があるように思った。
 
 ## 方針
+
 おそらく３つの観点について知る必要がある。これらに関する論文をclaude君に列挙してもらって，読んでいく。
 1. 脳のタイムスケールはどのようになっているか
 2. 脳のタイムスケールによって何が可能になるか
 3. 脳のタイムスケールはどのように生まれるか
 
 ### 脳のタイムスケールはどのようになっているか
+
 - Murray et al.(2014). A hierarchy of intrinsic timescales across primate cortex.
   - この分野の走り。スパイクの自己相関から感覚野は短く，前頭前野は長いという階層性を示した。
 - Hasson et al. (2008) A Hierarchy of Temporal Receptive Windows in Human Cortex.
@@ -50,6 +53,7 @@ published: true
   - 自己相関によるタイムスケール推定のバイアスをベイズ的に補正する手法。
 
 ## 脳のタイムスケールによって何が可能になるか
+
 - Wolff et al. (2022) Intrinsic neural timescales: temporal integration and segregation.
   - 「長いタイムスケールは時間的統合，短いタイムスケールは分離を担う」というレビュー。
 - Cavanagh et al. (2020) A diversity of intrinsic timescales underlie neural computations.
@@ -72,6 +76,7 @@ published: true
   - 時定数が不均一であること自体が学習を頑健にする。
 
 ## 脳のタイムスケールはどのように生まれるか
+
 - Chaudhuri et al. (2015) A Large-Scale Circuit Mechanism for Hierarchical Dynamical Processing in the Primate Cortex.
   - 興奮性の勾配と長距離結合から階層が生じる。
 - Wang (2020) Macroscopic gradients of synaptic excitation and inhibition in the neocortex.
